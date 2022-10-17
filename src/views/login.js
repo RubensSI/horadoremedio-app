@@ -1,17 +1,32 @@
 import React from 'react'
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
+import { withRouter } from 'react-router-dom'
+
+import axios from 'axios'
 
 class Login extends React.Component {
 
   state = {
     email: "",
-    senha: ""
+    senha: "",
+    mensagemErro: null
   }
 
   entrar = () => {
-    console.log(`Email: ${this.state.email}`)
-    console.log(`Senha: ${this.state.senha}`)
+    axios
+      .post('http://localhost:8080/api/usuarios/autenticar', {
+        email: this.state.email,
+        senha: this.state.senha
+      }).then(response => {
+        this.props.history.push('/home')
+      }).catch(erro => {
+        this.setState({ mensagemErro: erro.response.data })
+      })
+  }
+
+  prepareCadastrar = () => {
+    this.props.history.push('/cadastro-usuario')
   }
 
   render() {
@@ -20,6 +35,9 @@ class Login extends React.Component {
         <div className="col-md-6 offset-md-3">
           <div className="bs-docs-section">
             <Card title="Login">
+              <div className='row'>
+                <span>{this.state.mensagemErro}</span>
+              </div>
               <div className="row">
                 <div className="col-lg-12">
                   <div className="bs-component">
@@ -35,7 +53,8 @@ class Login extends React.Component {
                           placeholder="Digite o Email" />
                       </FormGroup>
 
-                      <FormGroup label="Senha: *" htmlFor="exampleInputPassword1">
+                      <FormGroup label="Senha: *"
+                        htmlFor="exampleInputPassword1">
                         <input type="password"
                           value={this.state.senha}
                           onChange={e => this.setState({ senha: e.target.value })}
@@ -45,7 +64,7 @@ class Login extends React.Component {
                       </FormGroup>
 
                       <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                      <button className="btn btn-danger">Cadastrar</button>
+                      <button onClick={this.prepareCadastrar} className="btn btn-danger">Cadastrar</button>
                     </fieldset>
                   </div>
                 </div>
@@ -58,4 +77,7 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+// decorator: recebe um componente como paâmetro
+// e rotorna esse componente recebido com funcionalidades
+// adiconais, nesse caso a navegação entre os componentes
+export default withRouter(Login)
