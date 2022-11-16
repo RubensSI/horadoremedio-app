@@ -15,7 +15,6 @@ class Login extends React.Component {
     senha: "",
   }
 
-
   // toda vez que colocamos o cobstrutor em um componete que
   // extende um componente do react seremos obrigados a chamar
   // super classe
