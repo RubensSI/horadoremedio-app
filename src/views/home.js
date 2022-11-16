@@ -10,16 +10,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    // recuparar usuario logado no localStorage
-    const usuarioLogadoString = localStorage.getItem('-usuario_logado')
-    // transformar objeto recebido do localHistorage em json
+    // recuparar os dados de usuario logado em localStorage
+    // por meio da atributo _usuario_logado no formato String
+    const usuarioLogadoString = localStorage.getItem('_usuario_logado')
+    // transformar os dados de usuarioLoagadoString recebido do localHistorage em JSON
     const usuarioLogado = JSON.parse(usuarioLogadoString)
 
+    console.log("Usuario Logado do  localStorage > ", usuarioLogado)
+
     // fazer uma requisição para obter o nome do usuario loga para exiber na navbar
-    // obter usuario por ai
-    axios.get(`http://localhost:8080/api/usuarios/${usuarioLogado}/usuario`)
+    // obter usuario por id
+    axios.get(`http://localhost:8080/api/usuarios/${usuarioLogado.id}/usuario`)
       .then(response => {
-        this.setState({nomeUsuario: response.data})
+        this.setState({ nomeUsuario: response.data })
+        console.log(this.state.nomeUsuario)
       }).catch(error => {
         console.log(error.response)
       })

@@ -3,9 +3,13 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { withRouter } from 'react-router-dom'
 
+<<<<<<< HEAD
 import { mensagemErro } from '../components/toastr'
 
 import axios from 'axios'
+=======
+import UsuarioService from '../app/service/usuarioService'
+>>>>>>> 95746513e5a748ace90eaa01f55f9135486d302d
 
 class Login extends React.Component {
 
@@ -14,6 +18,7 @@ class Login extends React.Component {
     senha: "",
   }
 
+<<<<<<< HEAD
   constructor() {
     super()
   }
@@ -29,6 +34,30 @@ class Login extends React.Component {
       }).catch(erro => {
         mensagemErro(erro.response.data)
       })
+=======
+  // toda vez que colocamos o cobstrutor em um componete que
+  // extende um componente do react seremos obrigados a chamar
+  // super classe
+  constructor() {
+    super()
+    this.service = new UsuarioService();
+  }
+
+  entrar = () => {
+    this.service.autenticar({
+      email: this.state.email,
+      senha: this.state.senha
+    }).then(response => {
+      // criar um atributo chamado "_usuario_logado" dentro de LocalHistorage no browser
+      // e passa pra ela uma string contendo dados de usuario
+      localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
+
+      // chama a próxima tela a ser execuctada
+      this.props.history.push('/home')
+    }).catch(erro => {
+
+    })
+>>>>>>> 95746513e5a748ace90eaa01f55f9135486d302d
   }
 
   prepareCadastrar = () => {
