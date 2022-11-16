@@ -3,27 +3,37 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { withRouter } from 'react-router-dom'
 
-import axios from 'axios'
+import UsuarioService from '../app/service/usuarioService'
 
 class Login extends React.Component {
 
   state = {
     email: "",
     senha: "",
-    mensagemErro: null
+  }
+
+  // toda vez que colocamos o cobstrutor em um componete que
+  // extende um componente do react seremos obrigados a chamar
+  // super classe
+  constructor() {
+    super()
+    this.service = new UsuarioService();
   }
 
   entrar = () => {
-    axios
-      .post('http://localhost:8080/api/usuarios/autenticar', {
-        email: this.state.email,
-        senha: this.state.senha
-      }).then(response => {
-        localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
-        this.props.history.push('/home')
-      }).catch(erro => {
-        this.setState({ mensagemErro: erro.response.data })
-      })
+    this.service.autenticar({
+      email: this.state.email,
+      senha: this.state.senha
+    }).then(response => {
+      // criar um atributo chamado "_usuario_logado" dentro de LocalHistorage no browser
+      // e passa pra ela uma string contendo dados de usuario
+      localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
+
+      // chama a próxima tela a ser execuctada
+      this.props.history.push('/home')
+    }).catch(erro => {
+
+    })
   }
 
   prepareCadastrar = () => {
@@ -36,9 +46,6 @@ class Login extends React.Component {
         <div className="col-md-6 offset-md-3">
           <div className="bs-docs-section">
             <Card title="Login">
-              <div className='row'>
-                <span>{this.state.mensagemErro}</span>
-              </div>
               <div className="row">
                 <div className="col-lg-12">
                   <div className="bs-component">
