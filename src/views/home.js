@@ -1,9 +1,14 @@
 import React from "react"
-import axios from "axios"
+import UsuarioService from "../app/service/usuarioService"
 
-
+import LocalStorageService from "../app/service/localStorageService"
 
 class Home extends React.Component {
+
+  constructor() {
+    super()
+    this.usuarioService = new UsuarioService()
+  }
 
   state = {
     nomeUsuario: ""
@@ -12,18 +17,17 @@ class Home extends React.Component {
   componentDidMount() {
     // recuparar os dados de usuario logado em localStorage
     // por meio da atributo _usuario_logado no formato String
-    const usuarioLogadoString = localStorage.getItem('_usuario_logado')
-    // transformar os dados de usuarioLoagadoString recebido do localHistorage em JSON
-    const usuarioLogado = JSON.parse(usuarioLogadoString)
+    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    // transformar os dados de usuarioLoagadoString recebido do localHistorage em JSON =
 
     console.log("Usuario Logado do  localStorage > ", usuarioLogado)
 
     // fazer uma requisição para obter o nome do usuario loga para exiber na navbar
     // obter usuario por id
-    axios.get(`http://localhost:8080/api/usuarios/${usuarioLogado.id}/usuario`)
+    this.usuarioService
+      .obterUsuarioPorId(usuarioLogado.id)
       .then(response => {
         this.setState({ nomeUsuario: response.data })
-        console.log(this.state.nomeUsuario)
       }).catch(error => {
         console.log(error.response)
       })

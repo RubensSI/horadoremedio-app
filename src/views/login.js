@@ -3,16 +3,12 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { withRouter } from 'react-router-dom'
 
-import { mensagemErro } from '../components/toastr'
+//import { mensagemErro } from '../components/toastr'
 
 import UsuarioService from '../app/service/usuarioService'
+import LocalStorageService from '../app/service/localStorageService'
 
 class Login extends React.Component {
-
-  state = {
-    email: "",
-    senha: "",
-  }
 
   // toda vez que colocamos o cobstrutor em um componete que
   // extende um componente do react seremos obrigados a chamar
@@ -22,6 +18,11 @@ class Login extends React.Component {
     this.service = new UsuarioService();
   }
 
+  state = {
+    email: "",
+    senha: "",
+  }
+
   entrar = () => {
     this.service.autenticar({
       email: this.state.email,
@@ -29,7 +30,7 @@ class Login extends React.Component {
     }).then(response => {
       // criar um atributo chamado "_usuario_logado" dentro de LocalHistorage no browser
       // e passa pra ela uma string contendo dados de usuario
-      localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
+      LocalStorageService.adicionarItem('_usuario_logado', JSON.stringify(response.data))
 
       // chama a próxima tela a ser execuctada
       this.props.history.push('/home')
