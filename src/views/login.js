@@ -7,7 +7,6 @@ import { mensagemErro } from '../components/toastr'
 
 import UsuarioService from '../app/service/usuarioService'
 
-
 class Login extends React.Component {
 
   state = {
