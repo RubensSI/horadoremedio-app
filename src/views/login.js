@@ -3,13 +3,10 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { withRouter } from 'react-router-dom'
 
-<<<<<<< HEAD
 import { mensagemErro } from '../components/toastr'
 
-import axios from 'axios'
-=======
 import UsuarioService from '../app/service/usuarioService'
->>>>>>> 95746513e5a748ace90eaa01f55f9135486d302d
+
 
 class Login extends React.Component {
 
@@ -18,23 +15,7 @@ class Login extends React.Component {
     senha: "",
   }
 
-<<<<<<< HEAD
-  constructor() {
-    super()
-  }
 
-  entrar = () => {
-    axios
-      .post('http://localhost:8080/api/usuarios/autenticar', {
-        email: this.state.email,
-        senha: this.state.senha
-      }).then(response => {
-        localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
-        this.props.history.push('/home')
-      }).catch(erro => {
-        mensagemErro(erro.response.data)
-      })
-=======
   // toda vez que colocamos o cobstrutor em um componete que
   // extende um componente do react seremos obrigados a chamar
   // super classe
@@ -57,7 +38,6 @@ class Login extends React.Component {
     }).catch(erro => {
 
     })
->>>>>>> 95746513e5a748ace90eaa01f55f9135486d302d
   }
 
   prepareCadastrar = () => {
