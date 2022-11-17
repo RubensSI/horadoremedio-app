@@ -3,7 +3,7 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { withRouter } from 'react-router-dom'
 
-//import { mensagemErro } from '../components/toastr'
+import { mensagemErro } from '../components/toastr'
 
 import UsuarioService from '../app/service/usuarioService'
 import LocalStorageService from '../app/service/localStorageService'
@@ -35,7 +35,7 @@ class Login extends React.Component {
       // chama a próxima tela a ser execuctada
       this.props.history.push('/home')
     }).catch(erro => {
-
+      mensagemErro(erro.response.data)
     })
   }
 

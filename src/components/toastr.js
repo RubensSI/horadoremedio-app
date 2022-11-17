@@ -27,7 +27,7 @@ export function mostrarMensagem(titulo, mensagem, tipo) {
 
 // mensegem de erro
 export function mensagemErro(mensagem) {
-  mostrarMensagem('Erro', mensagem, 'erro')
+  mostrarMensagem('Erro', mensagem, 'error')
 }
 
 // mensagem de sucesso
