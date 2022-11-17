@@ -5,13 +5,13 @@ import LocalStorageService from "../app/service/localStorageService"
 
 class Home extends React.Component {
 
+  state = {
+    nomeUsuario: ""
+  }
+
   constructor() {
     super()
     this.usuarioService = new UsuarioService()
-  }
-
-  state = {
-    nomeUsuario: ""
   }
 
   componentDidMount() {

@@ -9,11 +9,6 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr'
 
 class CadastroUsario extends React.Component {
 
-  constructor() {
-    super();
-    this.service = new UsuarioService();
-  }
-
   state = {
     nome: "",
     email: "",
@@ -22,7 +17,63 @@ class CadastroUsario extends React.Component {
     senhaRepeticao: ""
   }
 
+  constructor() {
+    super();
+    this.service = new UsuarioService()
+  }
+
+  validar() {
+
+    const mensagens = []
+
+    // verificar se o campo nome não está vazio!
+    // caso esteja adiciona a mensaegem na lista
+    if (!this.state.nome) {
+      mensagens.push("O campo nome é obrigatório.")
+    }
+
+    // varificar se o campo email está vazio se sim, adiciona a mensagem
+    // na lista, caso não esteja vazio mais o email não corrsponde a especificação
+    // adicionar outra mensagem a lista informando que o email não é válido.
+    if (!this.state.email) {
+      mensagens.push("O campo email é obrigatório.")
+    } else if (!this.state.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
+      mensagens.push("Informe um email válido.")
+    }
+
+    // vericar se campo telefone foi informado caso não tenha sido
+    // pedir para o usuario informa o telefone
+    if (!this.state.telefone) {
+      mensagens.push("Informe um telefone.")
+    }
+
+    // verificar se os campos senha e senhaRepetição foram informados
+    // e se as campos são iguais, caso não atenda as especifacações informar
+    // para o usuario que informa os campos de forma correta
+    if (!this.state.senha || !this.state.senhaRepeticao) {
+      mensagens.push("Informe a senha 2x .")
+    } else if (this.state.senha !== this.state.senhaRepeticao) {
+      mensagens.push("A senhas não conferem.")
+    }
+
+
+    return mensagens
+  }
+
   cadastrar = () => {
+
+    // receber a lista com as mesegans devalicação caso elas exitam
+    const mensagens = this.validar()
+
+    // verificar se alista de mensagens não está vazia
+    if (mensagens && mensagens.length > 0) {
+      mensagens.forEach((item, index) => {
+        mensagemErro(item)
+      })
+
+      return false
+    }
+
 
     const usuario = {
       nome: this.state.nome,
