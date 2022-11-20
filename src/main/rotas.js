@@ -3,7 +3,7 @@ import React from "react"
 import Login from "../views/login"
 import CadastroUsuario from "../views/cadastroUsuario"
 import Home from "../views/home"
-import ConsultarMedicamentos from "../views/consultar-medicamentos"
+import ConsultarMedicamentos from "../views/Medicamentos/consultar-medicamentos"
 
 import { Route, Switch, HashRouter } from 'react-router-dom'
 
