@@ -3,6 +3,7 @@ import React from "react"
 export default props => {
 
   const rows = props.medicamentos.map(medicamento => {
+    console.log(medicamento)
     return (
       <tr key={medicamento.id}>
         <td>{medicamento.nome}</td>

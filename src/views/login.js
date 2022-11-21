@@ -30,7 +30,7 @@ class Login extends React.Component {
     }).then(response => {
       // criar um atributo chamado "_usuario_logado" dentro de LocalHistorage no browser
       // e passa pra ela uma string contendo dados de usuario
-      LocalStorageService.adicionarItem('_usuario_logado', JSON.stringify(response.data))
+      LocalStorageService.adicionarItem('_usuario_logado', response.data)
 
       // chama a próxima tela a ser execuctada
       this.props.history.push('/home')

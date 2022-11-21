@@ -18,6 +18,7 @@ class Home extends React.Component {
     // recuparar os dados de usuario logado em localStorage
     // por meio da atributo _usuario_logado no formato String
     const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+
     // transformar os dados de usuarioLoagadoString recebido do localHistorage em JSON =
 
     console.log("Usuario Logado do  localStorage > ", usuarioLogado)
